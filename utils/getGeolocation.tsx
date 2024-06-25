@@ -1,22 +1,21 @@
-import axios from 'axios';
+import { Location } from "@/types/Location";
 
-const GEOLOCATION_URL = "https://www.googleapis.com/geolocation/v1/geolocate"
-
-
-const getGeolocation = async () => {
-    try {
-        const response = await axios.post(GEOLOCATION_URL, null, {
-            params: {
-                key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-            },
-        });
-
-        const {location} = response.data;
-        return location;
-    } catch (e) {
-        console.log(e);
-        throw new Error("Couldn't fetch geolocation", );
+const getGeolocation = (): Promise<Location> => {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          resolve({ latitude, longitude });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    } else {
+      reject(new Error('Geolocation is not supported by this browser.'));
     }
+  });
 };
 
 export default getGeolocation;

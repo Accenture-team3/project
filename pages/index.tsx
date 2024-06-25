@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from "@aws-amplify/ui-react";
 import getGeolocation from "@/utils/getGeolocation";
-
 import type { Schema } from "@/amplify/data/resource";
+import type { Location } from "@/types/Location";
 
 const client = generateClient<Schema>();
 
 export default function App() {
-  const [location, setLocation] = useState(undefined);
+  const [location, setLocation] = useState<Location | undefined>(undefined);
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -16,13 +16,11 @@ export default function App() {
         const loc = await getGeolocation();
         setLocation(loc);
       } catch (e) {
-        console.error("Couldn't fetch geolocation", e);
+        console.log(e);
       }
     };
-
     fetchLocation();
   }, []);
-
 
   return (
     <Authenticator>
@@ -30,8 +28,8 @@ export default function App() {
         <main>
           {location ? (
             <div>
-              <p>Lat: {location.lat}</p>
-              <p>Lon: {location.lng}</p>
+              <p>Lat: {location.latitude}</p>
+              <p>Lon: {location.longitude}</p>
             </div>
           ) : (
             <p>Fetching your location...</p>
