@@ -57,7 +57,7 @@ export default function App() {
       {({ signOut, user }) => (
         <main>
           {MAP_API_KEY ? (<APIProvider apiKey={MAP_API_KEY}>
-          <SimpleMap />
+          <SimpleMap location={location}/>
           </APIProvider>) : (
             <p>Unable to find API key to load Google Maps</p>
           )}
