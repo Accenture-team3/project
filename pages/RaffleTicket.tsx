@@ -17,9 +17,7 @@ export default function RaffleTicket() {
   }, []);
 
   const createTicket = async () => {
-    await client.models.Ticket.create({
-      isRedeemed: false,
-    });
+    await client.models.Ticket.create({});
 
     fetchTickets();
   };
