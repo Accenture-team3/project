@@ -5,8 +5,8 @@ export default function SimpleMap()
 {
   return (<Map
     style={{width: '50vw', height: '50vh'}}
-    defaultCenter={{lat: 22.54992, lng: 0}}
-    defaultZoom={3}
+    defaultCenter={{lat: -36.875461, lng: 174.763336}}
+    defaultZoom={12}
     gestureHandling={'greedy'}
     disableDefaultUI={true}
   />)
