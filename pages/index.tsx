@@ -4,12 +4,15 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
+import SimpleMap from "@/components/mapping/SimpleMap";
+import {APIProvider, Map} from '@vis.gl/react-google-maps';
+
 
 const client = generateClient<Schema>();
 
 export default function App() {
   const [location, setLocation] = useState<Location | undefined>(undefined);
-
+  const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_JS_API_KEY;
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -26,6 +29,11 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
+          {MAP_API_KEY ? (<APIProvider apiKey={MAP_API_KEY}>
+          <SimpleMap />
+          </APIProvider>) : (
+            <p>Unable to find API key to load Google Maps</p>
+          )}
           {location ? (
             <div>
               <p>Lat: {location.latitude}</p>
