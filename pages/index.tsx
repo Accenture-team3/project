@@ -5,19 +5,23 @@ import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
-
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import RaffleTicket from "./RaffleTicket";
 
 const client = generateClient<Schema>();
 
 const fetchWeather = async (lat: number, lon: number) => {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=026ea7877a22ff3a2dd720539706c117&units=metric`);
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=026ea7877a22ff3a2dd720539706c117&units=metric`
+  );
   const data = await response.json();
   return data;
 };
 
 const setWeatherIcon = async (id: string) => {
-  const response = await fetch(`https://openweathermap.org/img/wn/${id}@2x.png`);
+  const response = await fetch(
+    `https://openweathermap.org/img/wn/${id}@2x.png`
+  );
   const data = await response.blob();
   return URL.createObjectURL(data);
 };
@@ -25,7 +29,9 @@ const setWeatherIcon = async (id: string) => {
 export default function App() {
   const [location, setLocation] = useState<Location | undefined>(undefined);
   const [weatherData, setWeatherData] = useState<any>(null);
-  const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(undefined);
+  const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(
+    undefined
+  );
 
   const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_JS_API_KEY;
   useEffect(() => {
@@ -56,11 +62,15 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          {MAP_API_KEY ? (<APIProvider apiKey={MAP_API_KEY}>
-          <SimpleMap location={location}/>
-          </APIProvider>) : (
+          {MAP_API_KEY ? (
+            <APIProvider apiKey={MAP_API_KEY}>
+              <SimpleMap location={location} />
+            </APIProvider>
+          ) : (
             <p>Unable to find API key to load Google Maps</p>
           )}
+
+          <RaffleTicket />
           {location ? (
             <>
               <div>
@@ -70,14 +80,26 @@ export default function App() {
               {weatherData && (
                 <div className="flex justify-center lg:items-center mt-5 flex lg:ml-4 lg:mt-0">
                   <div className="sm:pr-4 flex justify-center">
-                    <span className="temperature">{weatherData.main.temp}°C</span>
+                    <span className="temperature">
+                      {weatherData.main.temp}°C
+                    </span>
                   </div>
                   <div className="flex justify-center items-center">
-                    <span className="weather-desc capitalize">{weatherData.weather[0].description}</span>
-                    {weatherIcon && <img id="weather-icon" src={weatherIcon} alt="Weather Icon" />}
+                    <span className="weather-desc capitalize">
+                      {weatherData.weather[0].description}
+                    </span>
+                    {weatherIcon && (
+                      <img
+                        id="weather-icon"
+                        src={weatherIcon}
+                        alt="Weather Icon"
+                      />
+                    )}
                   </div>
                   <div className="flex justify-center">
-                    <span className="wind">Wind: {weatherData.wind.speed} kph</span>
+                    <span className="wind">
+                      Wind: {weatherData.wind.speed} kph
+                    </span>
                   </div>
                 </div>
               )}
