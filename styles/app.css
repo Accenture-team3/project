@@ -66,7 +66,7 @@ a {
 
 
 .directions {
-  position: absolute;
+  /* position: absolute; */
   width: 275px;
   top: 0px;
   right: 0px;

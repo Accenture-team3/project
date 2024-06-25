@@ -8,11 +8,13 @@ interface Props {
 export default function ComplicatedMap(props: Props)
 {
   const { location } = props;
-
+  const [destination, setDestination] = useState("");
+  const destinationIsSet = (destination != "");
   if (location) 
-
     return (
     <>
+    <p>Dest value: {destination}</p>
+    <DestinationField setDestination={setDestination} />
     <Map
       style={{width: '50vw', height: '50vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
@@ -21,7 +23,7 @@ export default function ComplicatedMap(props: Props)
       disableDefaultUI={true}
       >
       
-      <Directions />
+      {destinationIsSet && <Directions lat={location.latitude} lng={location.longitude} dest={destination}/>}
       </Map>
     </>)
   else {
@@ -29,8 +31,13 @@ export default function ComplicatedMap(props: Props)
   }
 }
 
-
-function Directions() {
+interface DirectionProps {
+  lat: number;
+  lng: number;
+  dest: string;
+}
+function Directions(props: DirectionProps) {
+  const {lat, lng, dest} = props;
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
   const [directionsService, setDirectionsService] =
@@ -55,9 +62,9 @@ function Directions() {
 
     directionsService
       .route({
-        origin: '20 London St, Christchurch',
-        destination: 'University of Canterbury',
-        travelMode: google.maps.TravelMode.DRIVING,
+        origin: {lat: lat, lng: lng},
+        destination: dest,
+        travelMode: google.maps.TravelMode.TRANSIT,
         provideRouteAlternatives: true
       })
       .then(response => {
