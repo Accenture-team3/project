@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from "@aws-amplify/ui-react";
 import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
-import RaffleTicket from "@/components/RaffleTicket";
-import Alert from "@/components/Alert";
 import RefinedMap from "@/components/mapping/RefinedMap";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import outputs from "../amplify_outputs.json";
@@ -33,6 +32,7 @@ const setWeatherIcon = async (id: string) => {
 
 export default function App() {
   const [location, setLocation] = useState<Location | undefined>(undefined);
+
   const [weatherData, setWeatherData] = useState<any>(null);
   const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(
     undefined

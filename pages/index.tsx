@@ -67,19 +67,10 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <div
-            style={{ display: "flex", gap: "0.25rem", flexDirection: "row" }}
-          >
-            {MAP_API_KEY ? (
-              <APIProvider apiKey={MAP_API_KEY}>
-                <RefinedMap location={location} />
-              </APIProvider>
-            ) : (
-              <p>Unable to find API key to load Google Maps</p>
-            )}
+
             <RaffleTicket />
             <Alert />
-          </div>
+
           {location ? (
             <>
               <div>
