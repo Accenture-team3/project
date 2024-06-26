@@ -116,7 +116,7 @@ function Directions(props: DirectionProps) {
     if (!directionsRenderer) return;
     directionsRenderer.setDirections(transportMode);
     directionsRenderer.setRouteIndex(routeIndex);
-  }, [routeIndex, directionsRenderer, transportMode]);
+  }, [routeIndex, directionsRenderer, transportMode, dest]);
 
   if (!leg) return (<>    <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
     <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
