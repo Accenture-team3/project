@@ -67,13 +67,11 @@ export default function App() {
 
   return (
     <Authenticator>
-      {({ signOut, user }) => (
-        <div>
-          <main>
-            <Welcome />
-          </main>
-        </div>
-      )}
+      <div>
+        <main>
+          <Welcome />
+        </main>
+      </div>
     </Authenticator>
   );
 }
