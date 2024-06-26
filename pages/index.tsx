@@ -4,9 +4,16 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
-import RaffleTicket from "./RaffleTicket";
+import SimpleMap from "@/components/mapping/SimpleMap";
+import RaffleTicket from "@/components/RaffleTicket";
+import Alert from "@/components/Alert";
+import ComplicatedMap from "@/components/mapping/ComplicatedMap";
 import RefinedMap from "@/components/mapping/RefinedMap";
-import {APIProvider} from '@vis.gl/react-google-maps';
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import outputs from "../amplify_outputs.json";
+import { Amplify } from "aws-amplify";
+
+Amplify.configure(outputs);
 
 const client = generateClient<Schema>();
 
@@ -62,16 +69,15 @@ export default function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <div style={{display: 'flex', gap: "0.25rem", flexDirection: 'row'}}>
           {MAP_API_KEY ? (
             <APIProvider apiKey={MAP_API_KEY}>
-              <RefinedMap location={location} />
+              <SimpleMap location={location} />
             </APIProvider>
           ) : (
             <p>Unable to find API key to load Google Maps</p>
           )}
           <RaffleTicket />
-          </div>
+          <Alert />
           {location ? (
             <>
               <div>
