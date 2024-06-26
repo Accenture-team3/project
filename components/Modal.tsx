@@ -11,24 +11,22 @@ function Modal({ showModal, closeModal }: any) {
             <h1 className="text-3xl font-bold mb-2">🎉 You won!</h1>
           </div>
           <div className="rounded-lg p-4">
-            <h1 className="text-4xl font-bold mb-1 inline-flex">
-              20% <h1 className="text-lg align-end">discount</h1>
-            </h1>
-            <p className="text-lg mb-2">@ Remedy Coffee</p>
-            <div className="flex justify-center">
-              <div className="border-2 border-black h-10 w-20 mb-2"></div>
+            <div className="inline-flex items-end">
+              <h1 className="text-4xl font-bold mr-4 inline-flex">20% </h1>
+              <h1 className="text-lg ">discount</h1>
             </div>
+            <h1 className="text-lg mb-2 font-bold">@ Remedy Coffee</h1>
           </div>
         </div>
         <div className="flex mt-4">
           <button
-            className="flex-1 py-2 bg-purple-500 text-white rounded-l-lg hover:bg-purple-700"
+            className="flex-1 py-2 bg-white text-[#9486DE] rounded-l-lg hover:bg-purple hover:text-white"
             onClick={() => console.log("Learn more")}
           >
             Learn more
           </button>
           <button
-            className="flex-1 py-2 bg-purple-500 text-white rounded-r-lg hover:bg-purple-700"
+            className="flex-1 py-2 bg-[#9486DE] text-white rounded-r-lg hover:bg-purple"
             onClick={closeModal}
           >
             Close
