@@ -8,7 +8,7 @@ export default function Alert() {
   const [alert, setAlert] = useState<Schema["Alert"]["type"][]>();
 
   useEffect(() => {
-    const sub = client.models.Ticket.observeQuery().subscribe({
+    const sub = client.models.Alert.observeQuery().subscribe({
       next: ({ items }) => {
         setAlert([...items]);
       },
