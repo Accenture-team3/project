@@ -18,6 +18,8 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import outputs from "../amplify_outputs.json";
 import { Amplify } from "aws-amplify";
 import NavBar from "@/components/navbar/NavBar";
+import { WeeklyFront } from "@/components/mapping/WeeklyFront";
+import Weekly from "@/components/mapping/Weekly";
 
 Amplify.configure(outputs);
 
@@ -46,6 +48,7 @@ export default function App() {
   const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(
     undefined
   );
+  const [showWeekly, setShowWeekly] = useState<boolean>(false);
 
   const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_UNRESTRICTED;
   useEffect(() => {
@@ -380,6 +383,7 @@ export default function App() {
                   )}
                 </div>
               </main>
+              <WeeklyFront />
               <NavBar />
             </div>
           )}
