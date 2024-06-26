@@ -1,5 +1,5 @@
 import React from "react";
-import { Authenticator } from "@aws-amplify/ui-react";
+import { Authenticator, Link } from "@aws-amplify/ui-react";
 import Navbar from "@/components/navbar/NavBar";
 
 const Account: React.FC = () => {
@@ -8,7 +8,9 @@ const Account: React.FC = () => {
       {({ signOut, user }) => (
         <div>
           <div>account hello</div>
-          <button onClick={signOut}>Sign Out</button>
+          <Link href="/map">
+            <button onClick={signOut}>Sign Out</button>
+          </Link>
           <Navbar />
         </div>
       )}

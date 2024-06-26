@@ -133,7 +133,7 @@ export default function App() {
       return (
         <div className="relative w-full">
           <svg
-            className="fixed bottom-0 max-w-80"
+            className="fixed bottom-0 right-0 max-w-96"
             viewBox="0 0 332 116"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -359,7 +359,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View padding="xxl" className="w-screen h-screen bg-white">
+      <View padding="xxl" className="w-screen h-screen bg-white p-0 m-0">
         <Authenticator formFields={formFields} components={components}>
           {({ user }) => (
             <div>
