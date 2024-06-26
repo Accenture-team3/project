@@ -1,6 +1,5 @@
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import { Location } from '@/types/Location';
-import DestinationField from './DestinationField';
 import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
 interface Props {
@@ -69,7 +68,7 @@ function Directions(props: DirectionProps) {
     if (!routesLibrary || !map) return;
     setDirectionsService(new routesLibrary.DirectionsService());
     setDirectionsRenderer(new routesLibrary.DirectionsRenderer({map}));
-  }, [routesLibrary, map]);
+  }, [routesLibrary, map, dest]);
 
   // Use directions service
   useEffect(() => {
