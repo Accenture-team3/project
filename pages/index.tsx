@@ -5,8 +5,10 @@ import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import RaffleTicket from "./RaffleTicket";
+import ComplicatedMap from "@/components/mapping/ComplicatedMap";
+import RefinedMap from "@/components/mapping/RefinedMap";
+import {APIProvider, Map} from '@vis.gl/react-google-maps';
 
 const client = generateClient<Schema>();
 
@@ -33,7 +35,7 @@ export default function App() {
     undefined
   );
 
-  const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_JS_API_KEY;
+  const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_UNRESTRICTED;
   useEffect(() => {
     const fetchLocation = async () => {
       try {
