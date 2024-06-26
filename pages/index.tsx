@@ -5,8 +5,7 @@ import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
-
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 const client = generateClient<Schema>();
 
@@ -28,6 +27,7 @@ export default function App() {
   const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(undefined);
 
   const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_JS_API_KEY;
+
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -55,44 +55,37 @@ export default function App() {
   return (
     <Authenticator>
       {({ signOut, user }) => (
-        <main>
-          {MAP_API_KEY ? (<APIProvider apiKey={MAP_API_KEY}>
-          <SimpleMap location={location}/>
-          </APIProvider>) : (
-            <p>Unable to find API key to load Google Maps</p>
+        <main className="container mx-auto p-4">
+          {MAP_API_KEY ? (
+            <APIProvider apiKey={MAP_API_KEY}>
+              <SimpleMap location={location} />
+            </APIProvider>
+          ) : (
+            <p className="text-red-500">Unable to find API key to load Google Maps</p>
           )}
           {location ? (
-            <>
-              <div>
-                <p>Lat: {location.latitude}</p>
-                <p>Lon: {location.longitude}</p>
-              </div>
-              {weatherData && (
-                <div className="flex justify-center lg:items-center mt-5 flex lg:ml-4 lg:mt-0">
-                  <div className="sm:pr-4 flex justify-center">
-                    <span className="temperature">{weatherData.main.temp}°C</span>
+            <div className="flex flex-col items-center mt-4">
+              <div className="weather-container bg-gray-100 rounded-lg shadow-md p-4">
+                <h2 className="weather-title text-2xl font-bold mb-4">Today's Weather</h2>
+                <div className="flex justify-center items-center space-x-4">
+                  <span className="temperature text-3xl font-bold">{weatherData?.main.temp}°C</span>
+                  <div className="flex flex-col items-center">
+                    <span className="weather-desc capitalize text-lg">{weatherData?.weather[0].description}</span>
+                    {weatherIcon && <img id="weather-icon" src={weatherIcon} alt="Weather Icon" className="w-16 h-16 mt-2" />}
                   </div>
-                  <div className="flex justify-center items-center">
-                    <span className="weather-desc capitalize">{weatherData.weather[0].description}</span>
-                    {weatherIcon && <img id="weather-icon" src={weatherIcon} alt="Weather Icon" />}
-                  </div>
-                  <div className="flex justify-center">
-                    <span className="wind">Wind: {weatherData.wind.speed} kph</span>
-                  </div>
+                  <span className="wind text-lg">Wind: {weatherData?.wind.speed} kph</span>
                 </div>
-              )}
-            </>
+              </div>
+            </div>
           ) : (
-            <p>Fetching your location...</p>
+            <p className="mt-4 text-lg">Fetching your location...</p>
           )}
-          <div>
+          <div className="mt-6 text-lg">
             🥳 App successfully hosted. Try creating a new todo.
             <br />
-            <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/">
-              Review next steps of this tutorial.
-            </a>
+            <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/" className="text-blue-500 underline">Review next steps of this tutorial.</a>
           </div>
-          <button onClick={signOut}>Sign out</button>
+          <button onClick={signOut} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Sign out</button>
         </main>
       )}
     </Authenticator>

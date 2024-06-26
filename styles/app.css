@@ -81,3 +81,45 @@ a {
   margin: 0 10px;
   padding: 0.6em 1em;
 }
+
+.weather-container {
+  background-color: #c5c5c5;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+}
+
+.weather-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-type {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.weather-desc {
+  font-size: 16px;
+}
+
+.temperature {
+  font-size: 20px;
+}
+
+.wind {
+  font-size: 16px;
+}
+
+#weather-icon {
+  width: 100px;
+  height: 100px;
+}
