@@ -1,6 +1,5 @@
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import { Location } from '@/types/Location';
-import DestinationField from './DestinationField';
 import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
 interface Props {
@@ -46,22 +45,23 @@ function Directions(props: DirectionProps) {
   const [carResponse, setCarResponse] = useState<google.maps.DirectionsResult | null>(null);
   const [busResponse, setBusResponse] = useState<google.maps.DirectionsResult | null>(null);
   const [walkResponse, setWalkResponse] = useState<google.maps.DirectionsResult | null>(null);
-  const [transportMode, setTransportMode] = useState("");
+  const [transportMode, setTransportMode] = useState<google.maps.DirectionsResult | null>(null);
+  const [routeIndex, setRouteIndex] = useState(0);
+  const selected = transportMode?.routes[routeIndex];
+  const leg = selected?.legs[0];
 
 
   // Switch transport modes
   const handleCar = () => {
-    if (!directionsRenderer) return;
-    setTransportMode("car");
+    setTransportMode(carResponse);
   }
   const handleBus = () => {
-    if (!directionsRenderer) return;
-    setTransportMode("bus");
+    setTransportMode(busResponse);
   }
   const handleWalk = () => {
-    if (!directionsRenderer) return;
-    setTransportMode("walk");
+    setTransportMode(walkResponse);
   }
+
 
   // Initialize directions service and renderer
   useEffect(() => {
@@ -112,24 +112,9 @@ function Directions(props: DirectionProps) {
   // Update direction route
   useEffect(() => {
     if (!directionsRenderer) return;
-    switch (transportMode) {
-      case 'car':
-        directionsRenderer.setDirections(carResponse);
-        directionsRenderer.setRouteIndex(0);  
-        break;
-      case 'bus':
-        directionsRenderer.setDirections(busResponse);
-        directionsRenderer.setRouteIndex(0);  
-        break;
-      case 'walk':
-        directionsRenderer.setDirections(walkResponse);
-        directionsRenderer.setRouteIndex(0);  
-        break;
-      default:
-        break;
-    }
-
-  }, [directionsRenderer, transportMode, dest, carResponse, busResponse, walkResponse]);
+    directionsRenderer.setDirections(transportMode);
+    directionsRenderer.setRouteIndex(routeIndex);
+  }, [routeIndex, directionsRenderer, transportMode]);
 
   //if (!leg) 
     return (    
