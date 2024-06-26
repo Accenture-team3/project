@@ -22,9 +22,10 @@ export default function RefinedMap(props: Props)
 
   if (location) 
     return (
-    <>
+    <div className="flex flex-col"> 
+    <SearchBox setDestination={setDestination} />
     <Map
-      style={{width: '100vw', height: '100vh'}}
+      style={{width: '100vw', height: '85vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
       defaultZoom={12}
       gestureHandling={'greedy'}
@@ -32,8 +33,8 @@ export default function RefinedMap(props: Props)
       >
       {destinationIsSet && <Directions lat={location.latitude} lng={location.longitude} dest={destination}/>}
       </Map>
-      <SearchBox setDestination={setDestination} />
-    </>)
+      
+    </div >)
   else {
     return (<p>Waiting for user location...</p>)
   }
@@ -103,6 +104,7 @@ function Directions(props: DirectionProps) {
       })
       .then(response => {
         setBusResponse(response);
+        directionsRenderer.setDirections(response)
       });
 
     directionsService
@@ -115,7 +117,8 @@ function Directions(props: DirectionProps) {
       .then(response => {
         setWalkResponse(response);
       });
-
+    
+    setTransportMode(null)
     return () => directionsRenderer.setMap(null);
   }, [directionsService, directionsRenderer, dest, lat, lng]);
 
@@ -126,28 +129,38 @@ function Directions(props: DirectionProps) {
     directionsRenderer.setRouteIndex(routeIndex);
   }, [routeIndex, directionsRenderer, transportMode]);
 
-  //if (!leg) 
+  if (transportMode == null)
     return (    
-    <div className="results-container">
-      <div className="result">
-        <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
-        <span>Drive</span>
-        <span>Distance: {carResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {carResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
-      <div className="result">
-        <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
-        <span>Bus</span>
-        <span>Distance: {busResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {busResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
-      <div className="result">
-        <button style={{backgroundColor: "blue"}} onClick={handleWalk}></button>
-        <span>Walk</span>
-        <span>Distance: {walkResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {walkResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
+    <div className="absolute bottom-[126px] bg-white w-full rounded-t-3xl drop-shadow-[0_-5px_5px_rgba(0,0,0,0.25)]">
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl" onClick={handleCar}>
+        <div className="col-span-1 ">Drive</div>
+        <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div>Distance: {carResponse?.routes[0].legs[0].distance?.text}</div>
+          <div>Duration: {carResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div className="col-span-1 ">Tickets :)</div>
+      </button>
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl" onClick={handleBus}>
+        <div className="col-span-1 ">Bus</div>
+        <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div>Distance: {busResponse?.routes[0].legs[0].distance?.text}</div>
+          <div>Duration: {busResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div className="col-span-1 ">Tickets :)</div>
+      </button>
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl" onClick={handleWalk}>
+        <div className="col-span-1 ">Walk</div>
+        <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div>Distance: {walkResponse?.routes[0].legs[0].distance?.text}</div>
+          <div>Duration: {walkResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div className="col-span-1 ">Tickets :)</div>
+      </button>
     </div>);
 
+  return (<></>)
 }
 

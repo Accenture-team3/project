@@ -14,9 +14,9 @@ export default function SearchBox(props: Props) {
     setDestination(searchBoxValue);
   };
   return (
-    <div className="absolute top-0 left-0 w-full bg-purple-700 p-3">
+    <div className="bg-purple-700 p-3">
       <div className="relative mb-4">
-        <h1 className="text-white text-2xl">Search Destination</h1>
+        <h1 className="text-white text-2xl align-text-bottom">Search Destination</h1>
         <div className="absolute top-0 right-0 bg-purple-700 text-white p-2 rounded-full">
           <i className="bi bi-bell-fill text-xl"></i>
         </div>
