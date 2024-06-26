@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Welcome() {
@@ -22,9 +23,11 @@ export default function Welcome() {
           Traffle
         </h1>
       </div>
-      <button className="mt-16 px-14 py-3 bg-purple font-semibold text-white rounded-full text-lg md:text-2xl md:py-4 md:px-28 md:mt-24 lg:text-4xl lg:py-6 lg:px-40 lg:mt-32 mb-60">
-        Get Started
-      </button>
+      <Link href='/map'>
+        <button className="mt-16 px-14 py-3 bg-purple font-semibold text-white rounded-full text-lg md:text-2xl md:py-4 md:px-28 md:mt-24 lg:text-4xl lg:py-6 lg:px-40 lg:mt-32 mb-60">
+          Get Started
+        </button>
+      </Link>
       <div className="relative w-full">
         <svg
           className="fixed bottom-0 left-0 w-full max-h-80"

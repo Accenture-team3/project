@@ -34,7 +34,7 @@ const Schedule: React.FC = () => {
                 <div
                   key={day}
                   className={`p-2 rounded-full ${
-                    day === 16
+                    day === 26
                       ? "bg-purple-700 text-white"
                       : day === 4
                       ? "border-2 border-purple-700"
