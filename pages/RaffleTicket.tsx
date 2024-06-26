@@ -31,6 +31,11 @@ export default function RaffleTicket() {
     const { data: updatedTicket, errors } = await client.models.Ticket.update(
       updatedData
     );
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
+        ticket.id === id ? { ...ticket, isRedeemed: true } : ticket
+      )
+    );
   };
 
   return (
