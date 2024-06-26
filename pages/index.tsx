@@ -6,6 +6,7 @@ import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
 import ComplicatedMap from "@/components/mapping/ComplicatedMap";
+import RefinedMap from "@/components/mapping/RefinedMap";
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 
 
@@ -58,7 +59,7 @@ export default function App() {
       {({ signOut, user }) => (
         <main>
           {MAP_API_KEY ? (<APIProvider apiKey={MAP_API_KEY}>
-          <ComplicatedMap location={location}/>
+          <RefinedMap location={location}/>
           </APIProvider>) : (
             <p>Unable to find API key to load Google Maps</p>
           )}

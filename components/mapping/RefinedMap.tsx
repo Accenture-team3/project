@@ -1,6 +1,7 @@
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import { Location } from '@/types/Location';
 import DestinationField from './DestinationField';
+import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
 interface Props {
   location: Location | undefined;
@@ -13,8 +14,6 @@ export default function RefinedMap(props: Props)
   if (location) 
     return (
     <>
-    <p>Dest value: {destination}</p>
-    <DestinationField setDestination={setDestination} />
     <Map
       style={{width: '50vw', height: '50vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
@@ -22,9 +21,9 @@ export default function RefinedMap(props: Props)
       gestureHandling={'greedy'}
       disableDefaultUI={true}
       >
-      
       {destinationIsSet && <Directions lat={location.latitude} lng={location.longitude} dest={destination}/>}
       </Map>
+      <SearchBox setDestination={setDestination} />
     </>)
   else {
     return (<p>Waiting for user location...</p>)
@@ -118,9 +117,28 @@ function Directions(props: DirectionProps) {
     directionsRenderer.setRouteIndex(routeIndex);
   }, [routeIndex, directionsRenderer, transportMode]);
 
-  if (!leg) return (<>    <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
-    <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
-    <button style={{backgroundColor: "blue"}} onClick={handleWalk}></button></>);
+  //if (!leg) 
+    return (    
+    <div className="results-container">
+      <div className="result">
+        <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
+        <span>Drive</span>
+        <span>Distance: {carResponse?.routes[0].legs[0].distance?.text}</span>
+        <span>Duration: {carResponse?.routes[0].legs[0].duration?.text}</span>
+      </div>
+      <div className="result">
+        <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
+        <span>Bus</span>
+        <span>Distance: {busResponse?.routes[0].legs[0].distance?.text}</span>
+        <span>Duration: {busResponse?.routes[0].legs[0].duration?.text}</span>
+      </div>
+      <div className="result">
+        <button style={{backgroundColor: "blue"}} onClick={handleWalk}></button>
+        <span>Walk</span>
+        <span>Distance: {walkResponse?.routes[0].legs[0].distance?.text}</span>
+        <span>Duration: {walkResponse?.routes[0].legs[0].duration?.text}</span>
+      </div>
+    </div>);
 
   return (
     <>
