@@ -5,13 +5,13 @@ import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
-import RaffleTicket from "./RaffleTicket";
+import RaffleTicket from "@/components/RaffleTicket";
+import Alert from "@/components/Alert";
 import ComplicatedMap from "@/components/mapping/ComplicatedMap";
 import RefinedMap from "@/components/mapping/RefinedMap";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import outputs from "../amplify_outputs.json";
 import { Amplify } from "aws-amplify";
-import Alert from "./Alert";
 
 Amplify.configure(outputs);
 
