@@ -12,7 +12,7 @@ const schema = a.schema({
       isRedeemed: a.boolean().default(false),
     })
     .authorization((allow) => [allow.owner()]),
-  Notifications: a
+  Alert: a
     .model({
       title: a.string(),
       message: a.string(),
