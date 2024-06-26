@@ -8,7 +8,11 @@ import SimpleMap from "@/components/mapping/SimpleMap";
 import RaffleTicket from "./RaffleTicket";
 import ComplicatedMap from "@/components/mapping/ComplicatedMap";
 import RefinedMap from "@/components/mapping/RefinedMap";
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import outputs from "../amplify_outputs.json";
+import { Amplify } from "aws-amplify";
+
+Amplify.configure(outputs);
 
 const client = generateClient<Schema>();
 
