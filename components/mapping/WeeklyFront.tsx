@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react";
 import Link from "next/link";
 
-export const WeeklyFront:React.FC = () => {
+export const WeeklyFront: React.FC = () => {
   return (
     <div className="absolute bottom-40 left-4 z-50 bg-white rounded-lg shadow-lg grid grid-cols-3 items-center w-64">
       <div className="overflow-hidden h-full col-span-1 rounded-l-lg">
         <img
           src="/skytower.jpg"
           alt="sky tower"
-          className=" object-cover h-full w-full"
+          className="object-cover h-full w-full"
         />
       </div>
       <div className="col-span-2 px-2 pt-1">
@@ -23,7 +23,7 @@ export const WeeklyFront:React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-4 text-white"
+              className="w-4 h-4 text-white"
             >
               <path
                 strokeLinecap="round"
@@ -36,14 +36,14 @@ export const WeeklyFront:React.FC = () => {
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Sky Tower</h3>
           <p className="text-sm text-gray-600">around 20 minutes away</p>
-          <div className="flex items-center mt-2 ">
+          <div className="flex items-center mt-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6 text-yellow-500 mr-2"
+              className="w-6 h-6 text-yellow-500 mr-2"
             >
               <path
                 strokeLinecap="round"
@@ -57,4 +57,6 @@ export const WeeklyFront:React.FC = () => {
       </div>
     </div>
   );
-}
+};
+
+export default WeeklyFront;
