@@ -11,6 +11,7 @@ import RefinedMap from "@/components/mapping/RefinedMap";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import outputs from "../amplify_outputs.json";
 import { Amplify } from "aws-amplify";
+import Alert from "./Alert";
 
 Amplify.configure(outputs);
 
@@ -76,6 +77,7 @@ export default function App() {
             <p>Unable to find API key to load Google Maps</p>
           )}
           <RaffleTicket />
+          <Alert />
           {location ? (
             <>
               <div>
