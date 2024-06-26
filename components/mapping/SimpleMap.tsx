@@ -12,7 +12,9 @@ export default function SimpleMap(props: Props)
 
     return (
     <>
-    <DestinationField />
+    <DestinationField setDestination={function (value: string): void {
+          throw new Error('Function not implemented.');
+        } } />
     <Map
       style={{width: '50vw', height: '50vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
