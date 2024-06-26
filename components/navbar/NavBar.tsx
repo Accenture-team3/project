@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-white flex justify-around py-4 shadow-md border-t border-gray-300">
-      <Link href="/" passHref>
+      <Link href="/map" passHref>
         <div
           className={`nav-item ${
             router.pathname === "/" ? "font-bold" : ""

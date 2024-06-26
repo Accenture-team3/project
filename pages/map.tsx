@@ -10,7 +10,6 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import outputs from "../amplify_outputs.json";
 import { Amplify } from "aws-amplify";
 import NavBar from "@/components/navbar/NavBar";
-import Welcome from "@/components/Welcome";
 
 Amplify.configure(outputs);
 
@@ -67,11 +66,24 @@ export default function App() {
 
   return (
     <Authenticator>
-      <div>
-        <main>
-          <Welcome />
-        </main>
-      </div>
+      {({ signOut, user }) => (
+        <div>
+          <main>
+            <div
+              style={{ display: "flex", gap: "0.25rem", flexDirection: "row" }}
+            >
+              {MAP_API_KEY ? (
+                <APIProvider apiKey={MAP_API_KEY}>
+                  <RefinedMap location={location} />
+                </APIProvider>
+              ) : (
+                <p>Unable to find API key to load Google Maps</p>
+              )}
+            </div>
+          </main>
+          <NavBar />
+        </div>
+      )}
     </Authenticator>
   );
 }
