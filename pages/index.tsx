@@ -4,6 +4,8 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
+import SimpleMap from "@/components/mapping/SimpleMap";
+import Weekly from "@/components/mapping/Weekly"
 import RaffleTicket from "@/components/RaffleTicket";
 import Alert from "@/components/Alert";
 import RefinedMap from "@/components/mapping/RefinedMap";
@@ -38,6 +40,7 @@ export default function App() {
     undefined
   );
 
+
   const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_UNRESTRICTED;
   useEffect(() => {
     const fetchLocation = async () => {
@@ -66,6 +69,7 @@ export default function App() {
   return (
     <Authenticator>
       {({ signOut, user }) => (
+
         <main>
           <div
             style={{ display: "flex", gap: "0.25rem", flexDirection: "row" }}
@@ -102,6 +106,9 @@ export default function App() {
                         id="weather-icon"
                         src={weatherIcon}
                         alt="Weather Icon"
+                        className="w-16 h-16 mt-2"
+                      />
+                    )}
                       />
                     )}
                   </div>
@@ -109,21 +116,34 @@ export default function App() {
                     <span className="wind">
                       Wind: {weatherData.wind.speed} kph
                     </span>
+
                   </div>
+                  <span className="wind text-lg">
+                    Wind: {weatherData?.wind.speed} kph
+                  </span>
                 </div>
-              )}
-            </>
+              </div>
+            </div>
           ) : (
-            <p>Fetching your location...</p>
+            <p className="mt-4 text-lg">Fetching your location...</p>
           )}
-          <div>
+          <div className="mt-6 text-lg">
             🥳 App successfully hosted. Try creating a new todo.
             <br />
-            <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/">
+            <a
+              href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/"
+              className="text-blue-500 underline"
+            >
               Review next steps of this tutorial.
             </a>
           </div>
-          <button onClick={signOut}>Sign out</button>
+          <button
+            onClick={signOut}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+          >
+            Sign out
+          </button>
+          <Weekly />
         </main>
       )}
     </Authenticator>

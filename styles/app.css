@@ -1,7 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(74, 55, 190), rgb(74, 55, 190));
   display: flex;
+  flex-direction: column;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   height: 100vh;
   width: 100vw;
@@ -13,6 +18,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  flex: 1;
 }
 
 button {
@@ -28,7 +34,7 @@ button {
   color: white;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #090714;
 }
 button:focus,
 button:focus-visible {
@@ -63,6 +69,63 @@ a {
   font-weight: 800;
   text-decoration: none;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #1a1a1a;
+  padding: 1em 0;
+}
+
+.navbar button {
+  flex: 1;
+  margin: 0 10px;
+  padding: 0.6em 1em;
+}
+
+.weather-container {
+  background-color: #c5c5c5;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+}
+
+.weather-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-type {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.weather-desc {
+  font-size: 16px;
+}
+
+.temperature {
+  font-size: 20px;
+}
+
+.wind {
+  font-size: 16px;
+}
+
+#weather-icon {
+  width: 100px;
+  height: 100px;
 
 
 .directions {
@@ -113,4 +176,3 @@ a {
 
 .result-button {
 
-}
