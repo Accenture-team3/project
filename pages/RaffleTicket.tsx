@@ -7,19 +7,30 @@ const client = generateClient<Schema>();
 export default function RaffleTicket() {
   const [tickets, setTickets] = useState<Schema["Ticket"]["type"][]>([]);
 
-  const fetchTickets = async () => {
-    const { data: items, errors } = await client.models.Ticket.list();
-    setTickets(items);
-  };
-
   useEffect(() => {
-    fetchTickets();
+    const sub = client.models.Ticket.observeQuery().subscribe({
+      next: ({ items }) => {
+        setTickets([...items]);
+      },
+    });
+
+    return () => sub.unsubscribe();
   }, []);
 
   const createTicket = async () => {
     await client.models.Ticket.create({});
+  };
 
-    fetchTickets();
+  const redeemTicket = async (id: string, userId: string) => {
+    const updatedData = {
+      id: id,
+      isRedeemed: true,
+      ownerId: userId,
+    };
+
+    const { data: updatedTicket, errors } = await client.models.Ticket.update(
+      updatedData
+    );
   };
 
   return (
@@ -27,9 +38,13 @@ export default function RaffleTicket() {
       <button onClick={createTicket}>Generate a ticket</button>
       <ul>
         {tickets.map(({ id, isRedeemed, owner }) => (
-          <li key={id}>
-            {isRedeemed}, {owner}
-          </li>
+          <div>
+            <li key={id}>
+              Your ticket is currently{" "}
+              {isRedeemed ? "Redeemed" : "Not redeemed"}
+            </li>
+            <button onClick={() => redeemTicket(id, owner!)}>Redeem your ticket</button>
+          </div>
         ))}
       </ul>
     </div>

@@ -69,7 +69,6 @@ export default function App() {
           ) : (
             <p>Unable to find API key to load Google Maps</p>
           )}
-
           <RaffleTicket />
           {location ? (
             <>
