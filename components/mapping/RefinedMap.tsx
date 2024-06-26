@@ -140,32 +140,5 @@ function Directions(props: DirectionProps) {
       </div>
     </div>);
 
-  return (
-    <>
-    <div className="directions">
-    <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
-    <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
-    <button style={{backgroundColor: "blue"}} onClick={handleWalk}></button>
-
-      <h2>{selected.summary}</h2>
-      <p>
-        {leg.start_address.split(',')[0]} to {leg.end_address.split(',')[0]}
-      </p>
-      <p>Distance: {leg.distance?.text}</p>
-      <p>Duration: {leg.duration?.text}</p>
-
-      <h2>Other Routes</h2>
-      <ul>
-        {transportMode?.routes.map((route, index) => (
-          <li key={route.summary + index}>
-            <button onClick={() => setRouteIndex(index)}>
-              {route.summary}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-    </>
-  );
 }
 
