@@ -12,6 +12,12 @@ const schema = a.schema({
       isRedeemed: a.boolean().default(false),
     })
     .authorization((allow) => [allow.owner()]),
+  Notifications: a
+    .model({
+      title: a.string(),
+      message: a.string(),
+    })
+    .authorization((allow) => [allow.owner()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
