@@ -383,6 +383,7 @@ export default function App() {
                   )}
                 </div>
               </main>
+              <WeeklyFront />
               <NavBar />
             </div>
           )}
