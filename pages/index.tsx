@@ -5,20 +5,30 @@ import getGeolocation from "@/utils/getGeolocation";
 import type { Schema } from "@/amplify/data/resource";
 import type { Location } from "@/types/Location";
 import SimpleMap from "@/components/mapping/SimpleMap";
-import { APIProvider } from "@vis.gl/react-google-maps";
 import Weekly from "@/components/mapping/Weekly"
+import RaffleTicket from "@/components/RaffleTicket";
+import Alert from "@/components/Alert";
+import RefinedMap from "@/components/mapping/RefinedMap";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import outputs from "../amplify_outputs.json";
+import { Amplify } from "aws-amplify";
 
+Amplify.configure(outputs);
 
 const client = generateClient<Schema>();
 
 const fetchWeather = async (lat: number, lon: number) => {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=026ea7877a22ff3a2dd720539706c117&units=metric`);
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=026ea7877a22ff3a2dd720539706c117&units=metric`
+  );
   const data = await response.json();
   return data;
 };
 
 const setWeatherIcon = async (id: string) => {
-  const response = await fetch(`https://openweathermap.org/img/wn/${id}@2x.png`);
+  const response = await fetch(
+    `https://openweathermap.org/img/wn/${id}@2x.png`
+  );
   const data = await response.blob();
   return URL.createObjectURL(data);
 };
@@ -26,10 +36,12 @@ const setWeatherIcon = async (id: string) => {
 export default function App() {
   const [location, setLocation] = useState<Location | undefined>(undefined);
   const [weatherData, setWeatherData] = useState<any>(null);
-  const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(undefined);
+  const [weatherIcon, setWeatherIconUrl] = useState<string | undefined>(
+    undefined
+  );
 
-  const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_JS_API_KEY;
 
+  const MAP_API_KEY = process.env.NEXT_PUBLIC_GMAPS_UNRESTRICTED;
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -57,29 +69,37 @@ export default function App() {
   return (
     <Authenticator>
       {({ signOut, user }) => (
-        <main className="container mx-auto p-4 ">
-          {MAP_API_KEY ? (
-            <APIProvider apiKey={MAP_API_KEY}>
-              <SimpleMap location={location} />
-            </APIProvider>
-          ) : (
-            <p className="text-red-500">
-              Unable to find API key to load Google Maps
-            </p>
-          )}
+
+        <main>
+          <div
+            style={{ display: "flex", gap: "0.25rem", flexDirection: "row" }}
+          >
+            {MAP_API_KEY ? (
+              <APIProvider apiKey={MAP_API_KEY}>
+                <RefinedMap location={location} />
+              </APIProvider>
+            ) : (
+              <p>Unable to find API key to load Google Maps</p>
+            )}
+            <RaffleTicket />
+            <Alert />
+          </div>
           {location ? (
-            <div className="flex flex-col items-center mt-4">
-              <div className="weather-container bg-gray-100 rounded-lg shadow-md p-4">
-                <h2 className="weather-title text-2xl font-bold mb-4">
-                  Today's Weather
-                </h2>
-                <div className="flex justify-center items-center space-x-4">
-                  <span className="temperature text-3xl font-bold">
-                    {weatherData?.main.temp}°C
-                  </span>
-                  <div className="flex flex-col items-center">
-                    <span className="weather-desc capitalize text-lg">
-                      {weatherData?.weather[0].description}
+            <>
+              <div>
+                <p>Lat: {location.latitude}</p>
+                <p>Lon: {location.longitude}</p>
+              </div>
+              {weatherData && (
+                <div className="flex justify-center lg:items-center mt-5 flex lg:ml-4 lg:mt-0">
+                  <div className="sm:pr-4 flex justify-center">
+                    <span className="temperature">
+                      {weatherData.main.temp}°C
+                    </span>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <span className="weather-desc capitalize">
+                      {weatherData.weather[0].description}
                     </span>
                     {weatherIcon && (
                       <img
@@ -89,6 +109,14 @@ export default function App() {
                         className="w-16 h-16 mt-2"
                       />
                     )}
+                      />
+                    )}
+                  </div>
+                  <div className="flex justify-center">
+                    <span className="wind">
+                      Wind: {weatherData.wind.speed} kph
+                    </span>
+
                   </div>
                   <span className="wind text-lg">
                     Wind: {weatherData?.wind.speed} kph

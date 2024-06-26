@@ -126,4 +126,53 @@ a {
 #weather-icon {
   width: 100px;
   height: 100px;
+
+
+.directions {
+  /* position: absolute; */
+  width: 275px;
+  top: 0px;
+  right: 0px;
+  padding: 1.25rem;
+  padding-top: 0px;
+  margin: 0.25rem;
+  color: white;
+  background-color: #2d3748;
+  border-radius: 0.25rem;
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  position: absolute;
+}
+
+.search-box {
+
+}
+
+.search-button {
+  background-color: #8A2BE2;
+}
+
+.results-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  gap: 0.25rem;
+  background-color: #8A2BE2AA;
+  padding: 0.25rem;
+  border-radius:0.25rem;
+}
+
+.result {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
+.result-button {
+
