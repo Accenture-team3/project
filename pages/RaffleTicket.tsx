@@ -38,13 +38,12 @@ export default function RaffleTicket() {
       <button onClick={createTicket}>Generate a ticket</button>
       <ul>
         {tickets.map(({ id, isRedeemed, owner }) => (
-          <div>
-            <li key={id}>
-              Your ticket is currently{" "}
-              {isRedeemed ? "Redeemed" : "Not redeemed"}
-            </li>
-            <button onClick={() => redeemTicket(id, owner!)}>Redeem your ticket</button>
-          </div>
+          <li key={id}>
+            Your ticket is currently {isRedeemed ? "Redeemed" : "Not redeemed"}
+            <button onClick={() => redeemTicket(id, owner!)}>
+              Redeem your ticket
+            </button>
+          </li>
         ))}
       </ul>
     </div>
