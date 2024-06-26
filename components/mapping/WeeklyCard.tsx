@@ -9,7 +9,12 @@ interface CardProps {
   location: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, imageUrl, location }) => {
+const Card: React.FC<CardProps> = ({
+  title,
+  description,
+  imageUrl,
+  location,
+}) => {
   const [buttonOpacity, setButtonOpacity] = useState(1);
   const [buttonText, setButtonText] = useState("Check in");
 
@@ -58,7 +63,7 @@ const Card: React.FC<CardProps> = ({ title, description, imageUrl, location }) =
       <p className="mt-6">{description}</p>
       <div className="flex justify-between mt-8">
         <button
-          className="rounded-[20px] w-40 bg-[#4A37BE]"
+          className="rounded-[20px] w-40 bg-[#4A37BE] text-white"
           onClick={handleButton}
           style={{ opacity: buttonOpacity }}
         >
