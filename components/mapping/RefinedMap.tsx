@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 interface Props {
   location: Location | undefined;
 }
-export default function ComplicatedMap(props: Props)
+export default function RefinedMap(props: Props)
 {
   const { location } = props;
   const [destination, setDestination] = useState("");

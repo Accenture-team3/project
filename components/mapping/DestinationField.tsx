@@ -15,7 +15,6 @@ export default function DestinationField(props: Props)
   }
   return (
     <>
-      <p>{searchBoxValue}</p>
       <input onChange={handleChange}></input><button onClick={handleSearch}></button>
       
     </>
