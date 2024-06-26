@@ -14,7 +14,7 @@ export default function RefinedMap(props: Props)
     return (
     <>
     <Map
-      style={{width: '50vw', height: '50vh'}}
+      style={{width: '100vw', height: '100vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
       defaultZoom={12}
       gestureHandling={'greedy'}
