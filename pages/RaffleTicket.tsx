@@ -22,9 +22,6 @@ export default function RaffleTicket() {
   };
 
   const redeemTicket = async (id: string) => {
-    tickets.filter((ticket) => {
-      return ticket.id === id;
-    });
     const updatedData = {
       id: id,
       isRedeemed: true,
@@ -41,8 +38,12 @@ export default function RaffleTicket() {
       <ul>
         {tickets.map(({ id, isRedeemed, owner }) => (
           <li key={id}>
+            {!isRedeemed && (
+              <button onClick={() => redeemTicket(id)}>
+                Redeem your ticket
+              </button>
+            )}
             Your ticket is currently {isRedeemed ? "Redeemed" : "Not redeemed"}
-            <button onClick={() => redeemTicket(id)}>Redeem your ticket</button>
           </li>
         ))}
       </ul>
