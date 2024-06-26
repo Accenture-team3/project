@@ -23,8 +23,8 @@ export default function Welcome() {
           Traffle
         </h1>
       </div>
-      <Link href='/map'>
-        <button className="mt-16 px-14 py-3 bg-purple font-semibold text-white rounded-full text-lg md:text-2xl md:py-4 md:px-28 md:mt-24 lg:text-4xl lg:py-6 lg:px-40 lg:mt-32 mb-60">
+      <Link href="/map" className="mt-16 mb-60 md:mt-24 lg:mt-32">
+        <button className="px-14 py-3 bg-purple font-semibold text-white rounded-full text-lg md:text-2xl md:py-4 md:px-28 lg:text-4xl lg:py-6 lg:px-40">
           Get Started
         </button>
       </Link>
