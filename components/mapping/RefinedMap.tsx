@@ -1,4 +1,5 @@
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
+import { useSearchParams } from 'next/navigation';
 import { Location } from '@/types/Location';
 import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
@@ -7,14 +8,23 @@ interface Props {
 }
 export default function RefinedMap(props: Props)
 {
+  const searchParams = useSearchParams();
+  const stringDest = searchParams.get("location");
+
   const { location } = props;
-  const [destination, setDestination] = useState("");
-  const destinationIsSet = (destination != "");
+
+  const [destination, setDestination] = useState<string | null>();
+  useEffect(() => {
+    setDestination(stringDest);
+  }, [stringDest])
+
+  const destinationIsSet = (destination != null);
+
   if (location) 
     return (
     <>
     <Map
-      style={{width: '50vw', height: '50vh'}}
+      style={{width: '100vw', height: '100vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
       defaultZoom={12}
       gestureHandling={'greedy'}
