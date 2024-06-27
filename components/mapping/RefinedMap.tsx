@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { Location } from '@/types/Location';
 import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
+import WeeklyFront from './WeeklyFront';
 interface Props {
   location: Location | undefined;
 }
@@ -22,9 +23,10 @@ export default function RefinedMap(props: Props)
 
   if (location) 
     return (
-    <>
+    <div className="flex flex-col"> 
+    <SearchBox setDestination={setDestination} />
     <Map
-      style={{width: '100vw', height: '100vh'}}
+      style={{width: '100vw', height: '85vh'}}
       defaultCenter={{lat: location.latitude, lng: location.longitude}}
       defaultZoom={12}
       gestureHandling={'greedy'}
@@ -32,8 +34,9 @@ export default function RefinedMap(props: Props)
       >
       {destinationIsSet && <Directions lat={location.latitude} lng={location.longitude} dest={destination}/>}
       </Map>
-      <SearchBox setDestination={setDestination} />
-    </>)
+      {!destinationIsSet && <WeeklyFront />}
+ 
+    </div >)
   else {
     return (<p>Waiting for user location...</p>)
   }
@@ -103,6 +106,7 @@ function Directions(props: DirectionProps) {
       })
       .then(response => {
         setBusResponse(response);
+        directionsRenderer.setDirections(response)
       });
 
     directionsService
@@ -115,7 +119,8 @@ function Directions(props: DirectionProps) {
       .then(response => {
         setWalkResponse(response);
       });
-
+    
+    setTransportMode(null)
     return () => directionsRenderer.setMap(null);
   }, [directionsService, directionsRenderer, dest, lat, lng]);
 
@@ -126,28 +131,53 @@ function Directions(props: DirectionProps) {
     directionsRenderer.setRouteIndex(routeIndex);
   }, [routeIndex, directionsRenderer, transportMode]);
 
-  //if (!leg) 
+  if (transportMode == null)
     return (    
-    <div className="results-container">
-      <div className="result">
-        <button style={{backgroundColor: "red"}} onClick={handleCar}></button>
-        <span>Drive</span>
-        <span>Distance: {carResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {carResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
-      <div className="result">
-        <button style={{backgroundColor: "green"}} onClick={handleBus}></button>
-        <span>Bus</span>
-        <span>Distance: {busResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {busResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
-      <div className="result">
-        <button style={{backgroundColor: "blue"}} onClick={handleWalk}></button>
-        <span>Walk</span>
-        <span>Distance: {walkResponse?.routes[0].legs[0].distance?.text}</span>
-        <span>Duration: {walkResponse?.routes[0].legs[0].duration?.text}</span>
-      </div>
+    <div className="absolute bottom-[126px] bg-white w-full rounded-t-3xl drop-shadow-[0_-5px_5px_rgba(0,0,0,0.25)]">
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl items-center" onClick={handleCar}>
+      <i className="bi bi-car-front-fill col-span-1 text-purple-700 text-4xl text-center "></i>
+      <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div className='text-gray-600'>Distance: {carResponse?.routes[0].legs[0].distance?.text}</div>
+          <div className='text-gray-600'>Duration: {carResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div
+          className={`col-span-1 text-purple-700 text-center flex flex-col items-center`}
+        >
+          <i className="bi bi-ticket-fill text-2xl mb-1"></i>
+          <span>x1</span>
+        </div>
+      </button>
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl items-center" onClick={handleBus}>
+      <i className="bi bi-bus-front-fill col-span-1 text-purple-700 text-4xl text-center "></i>
+      <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div className='text-gray-600'>Distance: {busResponse?.routes[0].legs[0].distance?.text}</div>
+          <div className='text-gray-600'>Duration: {busResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div
+          className={`col-span-1 text-purple-700 text-center flex flex-col items-center`}
+        >
+          <i className="bi bi-ticket-fill text-2xl mb-1"></i>
+          <span>x2</span>
+        </div>
+      </button>
+      <button className="grid grid-cols-5 gap-4 bg-white text-black w-full rounded-t-3xl items-center" onClick={handleWalk}>
+        <i className="bi bi-person-walking col-span-1 text-purple-700 text-4xl text-center "></i>
+        <div className="col-span-3 ">
+          <div>{dest}</div>
+          <div className='text-gray-600'>Distance: {walkResponse?.routes[0].legs[0].distance?.text}</div>
+          <div className='text-gray-600'>Duration: {walkResponse?.routes[0].legs[0].duration?.text}</div>
+        </div>
+        <div
+          className={`col-span-1 text-purple-700 text-center flex flex-col  justify-center  items-center`}
+        >
+          <i className="bi bi-ticket-fill text-2xl mb-1"></i>
+          <span>x3</span>
+        </div>
+      </button>
     </div>);
 
+  return (<></>)
 }
 

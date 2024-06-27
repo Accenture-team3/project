@@ -362,7 +362,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View padding="xxl" className="w-screen h-screen bg-white p-0 m-0">
+      <View className="w-screen h-screen bg-[#f2d93d] p-0 m-0">
         <Authenticator formFields={formFields} components={components}>
           {({ user }) => (
             <div>
@@ -383,7 +383,6 @@ export default function App() {
                   )}
                 </div>
               </main>
-              <WeeklyFront />
               <NavBar />
             </div>
           )}
