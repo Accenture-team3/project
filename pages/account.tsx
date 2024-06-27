@@ -8,7 +8,7 @@ const Account: React.FC = () => {
       {({ signOut, user }) => (
         <div>
           <div>account hello</div>
-          <Link href="/map">
+          <Link href="/">
             <button onClick={signOut}>Sign Out</button>
           </Link>
           <Navbar />
