@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { Location } from '@/types/Location';
 import SearchBox from './SearchBox';
 import { useState, useEffect } from 'react';
+import WeeklyFront from './WeeklyFront';
 interface Props {
   location: Location | undefined;
 }
@@ -33,7 +34,8 @@ export default function RefinedMap(props: Props)
       >
       {destinationIsSet && <Directions lat={location.latitude} lng={location.longitude} dest={destination}/>}
       </Map>
-      
+      {!destinationIsSet && <WeeklyFront />}
+ 
     </div >)
   else {
     return (<p>Waiting for user location...</p>)
