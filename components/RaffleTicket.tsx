@@ -90,11 +90,6 @@ export default function RaffleTicket() {
           {tickets.map(({ id, isRedeemed, owner }) => (
             <li key={id}>
               Your ticket is {isRedeemed ? "Redeemed" : "Not redeemed"}
-              {!isRedeemed && (
-                <button onClick={() => redeemTicket(id)}>
-                  Redeem your ticket
-                </button>
-              )}
             </li>
           ))}
         </ul>
